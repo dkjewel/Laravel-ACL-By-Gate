@@ -28,10 +28,20 @@
 
 
                 <li class="nav-item " >
-                    <a href="" class="nav-link">
-                        <i class="nav-icon fa  fa-university"></i>
+                    <a href="{{route('post.index')}}" class="nav-link">
+                        <i class="nav-icon fa  fa-list"></i>
                         <p>
-                            Manage Department
+                            View Post
+                        </p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item " >
+                    <a href="{{route('post.create')}}" class="nav-link">
+                        <i class="nav-icon fa  fa-plus"></i>
+                        <p>
+                            Create Post
                         </p>
                     </a>
                 </li>
