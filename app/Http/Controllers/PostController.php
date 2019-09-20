@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use Gate;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -18,12 +23,21 @@ class PostController extends Controller
 
     public function create()
     {
+        if(!Gate::allows('isAdmin') && !Gate::allows('isAuthor') ){
+            abort(404,"Sorry, You can do this actions");
+        }
+
         return view('admin.post.create');
     }
 
 
     public function store(Request $request)
     {
+        if(!Gate::allows('isAdmin') && !Gate::allows('isAuthor') ){
+            abort(404,"Sorry, You can do this actions");
+        }
+
+
         $this->validate($request, [
 
             'title' => 'required||unique:posts',
@@ -47,6 +61,10 @@ class PostController extends Controller
 
     public function edit($id)
     {
+        if(!Gate::allows('isAdmin') && !Gate::allows('isAuthor') ){
+            abort(404,"Sorry, You can do this actions");
+        }
+
 
         $post = Post::find($id);
 
@@ -56,6 +74,11 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        if(!Gate::allows('isAdmin') && !Gate::allows('isAuthor') ){
+            abort(404,"Sorry, You can do this actions");
+        }
+
         $post = Post::find($id);
 
         $this->validate($request, [
@@ -74,6 +97,11 @@ class PostController extends Controller
 
     public function destroy($id)
     {
+
+        if(!Gate::allows('isAdmin') ){
+            abort(404,"Sorry, You can do this actions");
+        }
+
         $post = Post::findOrFail($id);
 
         $post->delete();
