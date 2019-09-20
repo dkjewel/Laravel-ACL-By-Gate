@@ -29,7 +29,9 @@
                     <th>SL</th>
                     <th>Title</th>
                     <th>Body</th>
+                    @canany(['isAdmin', 'isAuthor'])
                     <th>Action</th>
+                    @endcanany
                 </tr>
 
                 </thead>
@@ -49,21 +51,25 @@
 
                                 <div class="row">
 
+                                    @canany(['isAdmin', 'isAuthor'])
                                     <div class="col-sm-8" style="margin-top: 3px">
                                         <a href="{{route('post.edit',$post->id)}}"
                                            class="fa fa-edit btn btn-info"></a>
                                     </div>
+                                    @endcanany
 
-                                    <div class="col-sm-4" style="margin-left: -20px">
-                                        <form action="{{route('post.destroy',$post->id)}}"
-                                              method="post">
-                                            {{ csrf_field() }}
-                                            @method('DELETE')
+                                    @can('isAdmin')
+                                        <div class="col-sm-4" style="margin-left: -20px">
+                                            <form action="{{route('post.destroy',$post->id)}}"
+                                                  method="post">
+                                                {{ csrf_field() }}
+                                                @method('DELETE')
 
-                                            <button type="submit" class="fa fa-trash btn btn-danger"></button>
+                                                <button type="submit" class="fa fa-trash btn btn-danger"></button>
 
-                                        </form>
-                                    </div>
+                                            </form>
+                                        </div>
+                                    @endcan
 
 
                                 </div>

@@ -25,9 +25,7 @@
                 data-accordion="false">
 
 
-
-
-                <li class="nav-item " >
+                <li class="nav-item ">
                     <a href="{{route('post.index')}}" class="nav-link">
                         <i class="nav-icon fa  fa-list"></i>
                         <p>
@@ -36,16 +34,16 @@
                     </a>
                 </li>
 
-
-                <li class="nav-item " >
-                    <a href="{{route('post.create')}}" class="nav-link">
-                        <i class="nav-icon fa  fa-plus"></i>
-                        <p>
-                            Create Post
-                        </p>
-                    </a>
-                </li>
-
+                @canany(['isAdmin', 'isAuthor'])
+                    <li class="nav-item ">
+                        <a href="{{route('post.create')}}" class="nav-link">
+                            <i class="nav-icon fa  fa-plus"></i>
+                            <p>
+                                Create Post
+                            </p>
+                        </a>
+                    </li>
+                @endcanany
 
 
 
